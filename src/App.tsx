@@ -92,10 +92,10 @@ function App() {
   };
 
   return (
-    <div className="app-container bg-gray-50">
+    <div className="app-container">
       <header className="app-header">
         <div className="px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">Bill Splitter</h1>
+          <h1 className="text-3xl font-bold">Bill Splitter</h1>
         </div>
       </header>
 
@@ -104,25 +104,19 @@ function App() {
           {/* Left side - Input forms */}
           <div className="space-y-6">
             <div className="app-card">
-              <h2 className="text-xl font-semibold text-gray-900">
-                Add Participants
-              </h2>
+              <h2 className="text-xl font-semibold">Add Participants</h2>
               <ParticipantForm bill={bill} setBill={setBill} />
             </div>
 
             <div className="app-card">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                Add Menu Items
-              </h2>
+              <h2 className="text-xl font-semibold">Add Menu Items</h2>
               <MenuItemForm bill={bill} setBill={setBill} />
             </div>
           </div>
 
           {/* Right side - Summary */}
           <div className="app-card">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              Bill Summary
-            </h2>
+            <h2 className="text-xl font-semibold">Bill Summary</h2>
             <BillSummary bill={bill} setBill={setBill} />
           </div>
         </div>

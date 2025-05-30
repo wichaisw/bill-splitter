@@ -1,0 +1,45 @@
+/* Reset default margins and ensure full width */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Ensure the app container takes full width */
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header styles */
+.app-header {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+/* Main content styles */
+.app-main {
+  width: 100%;
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Card styles */
+.app-card {
+  width: 100%;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}

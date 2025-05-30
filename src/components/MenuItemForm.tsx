@@ -73,22 +73,30 @@ export default function MenuItemForm({ bill, setBill }: MenuItemFormProps) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g., Pad Thai"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                text-gray-900 placeholder-gray-400 bg-white"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Price (฿)
             </label>
-            <input
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              placeholder="0.00"
-              step="0.01"
-              min="0"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
+            <div className="relative">
+              <span className="absolute left-3 top-2 text-gray-500">฿</span>
+              <input
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                placeholder="0.00"
+                step="0.01"
+                min="0"
+                className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                  text-gray-900 placeholder-gray-400 bg-white
+                  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
+            </div>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -99,14 +107,20 @@ export default function MenuItemForm({ bill, setBill }: MenuItemFormProps) {
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
               min="1"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm 
+                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                text-gray-900 placeholder-gray-400 bg-white
+                [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
           </div>
         </div>
         <button
           onClick={addMenuItem}
           disabled={!name.trim() || !price || !quantity}
-          className="mt-4 w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          className="mt-4 w-full px-4 py-2 bg-blue-600 text-white rounded-md 
+            hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
+            focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed 
+            transition-colors"
         >
           Add Item
         </button>
@@ -161,10 +175,10 @@ export default function MenuItemForm({ bill, setBill }: MenuItemFormProps) {
                     <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
                       {item.name}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
                       ฿{item.price.toFixed(2)}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
                       {item.quantity}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 text-right">

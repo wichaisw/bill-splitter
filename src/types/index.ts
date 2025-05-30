@@ -1,7 +1,7 @@
 export interface Participant {
   id: string;
   name: string;
-  color: string;
+  color?: string;
 }
 
 export interface MenuItem {
@@ -21,11 +21,6 @@ export interface Bill {
   participants: Participant[];
   serviceCharge: number;
   tax: number;
-}
-
-export interface Participant {
-  id: string;
-  name: string;
 }
 
 export interface BillItem {

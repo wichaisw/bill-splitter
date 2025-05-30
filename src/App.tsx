@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Bill, BillItem, Participant } from "./types";
+import type { Bill, BillItem } from "./types";
 import { generateId } from "./utils/id";
 import ParticipantForm from "./components/ParticipantForm";
 import MenuItemForm from "./components/MenuItemForm";
@@ -21,75 +21,6 @@ function App() {
     price: 0,
     quantity: 1,
   });
-
-  const [newParticipant, setNewParticipant] = useState("");
-
-  const addItem = () => {
-    if (!newItem.name || newItem.price <= 0) return;
-
-    const item: BillItem = {
-      ...newItem,
-      id: crypto.randomUUID(),
-      sharedBy: bill.participants.map((p) => p.id), // Default share with everyone
-    };
-
-    setBill((prev) => ({
-      ...prev,
-      items: [...prev.items, item],
-    }));
-
-    setNewItem({
-      name: "",
-      price: 0,
-      quantity: 1,
-    });
-  };
-
-  const addParticipant = () => {
-    if (!newParticipant.trim()) return;
-
-    const participant: Participant = {
-      id: crypto.randomUUID(),
-      name: newParticipant.trim(),
-    };
-
-    setBill((prev) => ({
-      ...prev,
-      participants: [...prev.participants, participant],
-    }));
-
-    setNewParticipant("");
-  };
-
-  const toggleItemShare = (itemId: string, participantId: string) => {
-    setBill((prev) => ({
-      ...prev,
-      items: prev.items.map((item) => {
-        if (item.id === itemId) {
-          const sharedBy = item.sharedBy.includes(participantId)
-            ? item.sharedBy.filter((id) => id !== participantId)
-            : [...item.sharedBy, participantId];
-          return { ...item, sharedBy };
-        }
-        return item;
-      }),
-    }));
-  };
-
-  const calculateParticipantTotal = (participantId: string) => {
-    const itemTotal = bill.items.reduce((total, item) => {
-      if (!item.sharedBy.includes(participantId)) return total;
-      const shareCount = item.sharedBy.length;
-      const itemShare = (item.price * item.quantity) / shareCount;
-      return total + itemShare;
-    }, 0);
-
-    const participantCount = bill.participants.length;
-    const serviceChargeShare = bill.serviceCharge / participantCount;
-    const taxShare = bill.tax / participantCount;
-
-    return itemTotal + serviceChargeShare + taxShare;
-  };
 
   return (
     <div className="app-container">

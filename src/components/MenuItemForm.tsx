@@ -66,7 +66,7 @@ export default function MenuItemForm({ bill, setBill }: MenuItemFormProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Item Name
+              Menu
             </label>
             <input
               type="text"
@@ -130,20 +130,20 @@ export default function MenuItemForm({ bill, setBill }: MenuItemFormProps) {
       {bill.items.length > 0 && (
         <div className="bg-white shadow-sm rounded-lg border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
-            Items and Participants
+            Menu and Participants
           </h3>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr className="bg-gray-50">
                   <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Item
+                    Menu
                   </th>
                   <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Price
                   </th>
                   <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Qty
+                    Quantity
                   </th>
                   <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Total

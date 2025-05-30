@@ -24,7 +24,7 @@ const ExportToExcel = ({ bill }: ExportToExcelProps) => {
     // Create items table with participant columns
     const itemsTable = bill.items.map((item) => {
       const row: Record<string, any> = {
-        "Item Name": item.name,
+        Menu: item.name,
         Price: item.price,
         Quantity: item.quantity,
         Total: item.price * item.quantity,
@@ -46,7 +46,7 @@ const ExportToExcel = ({ bill }: ExportToExcelProps) => {
 
     // Add totals row
     const totalsRow: Record<string, any> = {
-      "Item Name": "TOTAL",
+      Menu: "TOTAL",
       Price: "",
       Quantity: "",
       Total: subtotal.toFixed(2),
@@ -103,7 +103,7 @@ const ExportToExcel = ({ bill }: ExportToExcelProps) => {
 
     // Set column widths
     const colWidths = [
-      { wch: 20 }, // Item Name
+      { wch: 20 }, // Menu
       { wch: 10 }, // Price
       { wch: 10 }, // Quantity
       { wch: 12 }, // Total

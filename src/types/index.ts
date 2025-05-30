@@ -22,3 +22,16 @@ export interface Bill {
   serviceCharge: number;
   tax: number;
 }
+
+export interface Participant {
+  id: string;
+  name: string;
+}
+
+export interface BillItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  sharedBy: string[]; // participant IDs
+}

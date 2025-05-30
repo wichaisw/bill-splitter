@@ -1,4 +1,5 @@
 import type { Bill } from "../types";
+import ExportToExcel from "./ExportToExcel";
 
 interface BillSummaryProps {
   bill: Bill;
@@ -172,6 +173,11 @@ export default function BillSummary({ bill, setBill }: BillSummaryProps) {
           </div>
         );
       })}
+
+      {/* Export Button */}
+      <div className="mt-6">
+        <ExportToExcel bill={bill} />
+      </div>
     </div>
   );
 }

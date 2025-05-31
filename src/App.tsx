@@ -5,6 +5,7 @@ import ParticipantForm from "./components/ParticipantForm";
 import MenuItemForm from "./components/MenuItemForm";
 import BillSummary from "./components/BillSummary";
 import JsonDataHandler from "./components/JsonDataHandler";
+import SessionManager from "./components/SessionManager";
 import "./App.css";
 
 function App() {
@@ -29,6 +30,9 @@ function App() {
         <div className="flex flex-col space-y-6">
           {/* Left side - Input forms */}
           <div className="space-y-6">
+            <div>
+              <SessionManager bill={bill} setBill={setBill} />
+            </div>
             <div className="app-card">
               <h2 className="text-xl font-semibold">Add Participants</h2>
               <ParticipantForm bill={bill} setBill={setBill} />

@@ -1,0 +1,66 @@
+import { useState, useEffect } from "react";
+import type { Bill } from "../types";
+
+interface SessionManagerProps {
+  bill: Bill;
+  setBill: (bill: Bill) => void;
+}
+
+const STORAGE_KEY = "bill-splitter-session";
+
+export default function SessionManager({ bill, setBill }: SessionManagerProps) {
+  const [hasStoredSession, setHasStoredSession] = useState(false);
+
+  // Check for stored session on component mount
+  useEffect(() => {
+    const storedSession = localStorage.getItem(STORAGE_KEY);
+    setHasStoredSession(!!storedSession);
+  }, []);
+
+  // Save session whenever bill changes
+  useEffect(() => {
+    if (bill.items.length > 0 || bill.participants.length > 0) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(bill));
+      setHasStoredSession(true);
+    }
+  }, [bill]);
+
+  const restoreSession = () => {
+    const storedSession = localStorage.getItem(STORAGE_KEY);
+    if (storedSession) {
+      try {
+        const parsedSession = JSON.parse(storedSession);
+        setBill(parsedSession);
+      } catch (error) {
+        console.error("Failed to restore session:", error);
+      }
+    }
+  };
+
+  if (!hasStoredSession) {
+    return null;
+  }
+
+  return (
+    <button
+      onClick={restoreSession}
+      className="px-4 py-2 bg-blue-600 text-white rounded-md 
+        hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
+        focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-5 w-5"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fillRule="evenodd"
+          d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+          clipRule="evenodd"
+        />
+      </svg>
+      Restore Last Session
+    </button>
+  );
+}

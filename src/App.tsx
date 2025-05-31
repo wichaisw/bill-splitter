@@ -6,6 +6,7 @@ import MenuItemForm from "./components/MenuItemForm";
 import BillSummary from "./components/BillSummary";
 import JsonDataHandler from "./components/JsonDataHandler";
 import SessionManager from "./components/SessionManager";
+import ChargeSettings from "./components/ChargeSettings";
 
 function App() {
   const [bill, setBill] = useState<Bill>({
@@ -51,6 +52,14 @@ function App() {
                 Add Menu Items
               </h2>
               <MenuItemForm bill={bill} setBill={setBill} />
+            </div>
+
+            {/* Charge Settings */}
+            <div className="w-full bg-white rounded-xl shadow-md border border-gray-200 p-4 lg:p-6 sm:p-8 mb-6">
+              <h2 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-4 mb-4">
+                Charge Settings
+              </h2>
+              <ChargeSettings bill={bill} setBill={setBill} />
             </div>
 
             {/* Bill Summary */}

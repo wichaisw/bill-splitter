@@ -59,7 +59,7 @@ export default function MenuItemForm({ bill, setBill }: MenuItemFormProps) {
   return (
     <div className="space-y-6">
       {/* Add Item Form */}
-      <div className="bg-white shadow-sm rounded-lg border border-gray-200 p-6">
+      <div className="bg-white shadow-sm rounded-lg border border-gray-200 p-4 lg:p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">
           Add New Item
         </h3>

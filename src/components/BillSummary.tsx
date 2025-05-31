@@ -57,7 +57,7 @@ export default function BillSummary({ bill }: BillSummaryProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="bg-white rounded-lg shadow-md p-4 lg:p-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Bill Summary</h2>
 
       {/* Items Table */}

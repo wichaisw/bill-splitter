@@ -39,14 +39,14 @@ function App() {
         <div className="grid grid-cols-1 gap-8">
           {/* Input forms */}
           <div className="space-y-6">
-            <div className="w-full bg-white rounded-xl shadow-md border border-gray-200 p-6 sm:p-8 mb-6">
+            <div className="w-full bg-white rounded-xl shadow-md border border-gray-200 p-4 lg:p-6 sm:p-8 mb-6">
               <h2 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-4 mb-4">
                 Add Participants
               </h2>
               <ParticipantForm bill={bill} setBill={setBill} />
             </div>
 
-            <div className="w-full bg-white rounded-xl shadow-md border border-gray-200 p-6 sm:p-8 mb-6">
+            <div className="w-full bg-white rounded-xl shadow-md border border-gray-200 p-4 lg:p-6 sm:p-8 mb-6">
               <h2 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-4 mb-4">
                 Add Menu Items
               </h2>
@@ -54,7 +54,7 @@ function App() {
             </div>
 
             {/* Bill Summary */}
-            <div className="w-full bg-white rounded-xl shadow-md border border-gray-200 p-6 sm:p-8 mb-6">
+            <div className="w-full bg-white rounded-xl shadow-md border border-gray-200 p-4 lg:p-6 sm:p-8 mb-6">
               <h2 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-4 mb-4">
                 Bill Summary
               </h2>

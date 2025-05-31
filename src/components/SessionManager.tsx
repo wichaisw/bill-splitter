@@ -44,13 +44,13 @@ export default function SessionManager({ bill, setBill }: SessionManagerProps) {
   return (
     <button
       onClick={restoreSession}
-      className="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 
+      className="inline-flex items-center px-2 sm:px-4 py-2 bg-white/10 hover:bg-white/20 
         text-white rounded-lg transition-colors duration-200 focus:outline-none 
         focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-blue-600"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5 mr-2"
+        className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2"
         viewBox="0 0 20 20"
         fill="currentColor"
       >
@@ -60,7 +60,7 @@ export default function SessionManager({ bill, setBill }: SessionManagerProps) {
           clipRule="evenodd"
         />
       </svg>
-      Restore Last Session
+      <span className="text-sm sm:text-base">Restore</span>
     </button>
   );
 }

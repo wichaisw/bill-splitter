@@ -1,6 +1,7 @@
 import type { Bill } from "../types";
 import ExportToExcel from "./ExportToExcel";
 import { add, multiply, divide, calculatePercentage } from "../utils/math";
+import { useState } from "react";
 
 interface BillSummaryProps {
   bill: Bill;
@@ -8,6 +9,8 @@ interface BillSummaryProps {
 }
 
 export default function BillSummary({ bill, setBill }: BillSummaryProps) {
+  const [copySuccess, setCopySuccess] = useState<string>("");
+
   const subtotal = bill.items.reduce(
     (total, item) => add(total, multiply(item.price, item.quantity)),
     0
@@ -16,6 +19,43 @@ export default function BillSummary({ bill, setBill }: BillSummaryProps) {
   const afterServiceCharge = add(subtotal, serviceChargeAmount);
   const taxAmount = calculatePercentage(afterServiceCharge, bill.tax);
   const total = add(afterServiceCharge, taxAmount);
+
+  const getParticipantTotal = (participantId: string) => {
+    const participantItems = bill.items.filter((item) =>
+      item.sharedBy.includes(participantId)
+    );
+    const participantSubtotal = participantItems.reduce((total, item) => {
+      const shareCount = item.sharedBy.length;
+      const itemShare = divide(multiply(item.price, item.quantity), shareCount);
+      return add(total, itemShare);
+    }, 0);
+    const participantServiceCharge = calculatePercentage(
+      participantSubtotal,
+      bill.serviceCharge
+    );
+    const participantAfterServiceCharge = add(
+      participantSubtotal,
+      participantServiceCharge
+    );
+    const participantTax = calculatePercentage(
+      participantAfterServiceCharge,
+      bill.tax
+    );
+    return add(participantAfterServiceCharge, participantTax);
+  };
+
+  const copyToClipboard = () => {
+    const text = bill.participants
+      .map((participant) => {
+        const total = getParticipantTotal(participant.id);
+        return `${participant.name}: ฿${total.toFixed(2)}`;
+      })
+      .join("\n");
+
+    navigator.clipboard.writeText(text);
+    setCopySuccess("Copied to clipboard!");
+    setTimeout(() => setCopySuccess(""), 2000);
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
@@ -206,6 +246,60 @@ export default function BillSummary({ bill, setBill }: BillSummaryProps) {
             <span className="text-gray-900">Grand Total</span>
             <span className="text-gray-900">฿{total.toFixed(2)}</span>
           </div>
+        </div>
+      </div>
+
+      {/* Participant Totals */}
+      <div className="bg-gray-50 rounded-lg p-4 mb-6">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold text-gray-900">
+            Individual Totals
+          </h3>
+          <button
+            onClick={copyToClipboard}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md 
+              hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
+              focus:ring-offset-2 transition-colors flex items-center gap-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
+              <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
+            </svg>
+            Copy All
+          </button>
+        </div>
+        {copySuccess && (
+          <div className="mb-4 p-2 bg-green-100 text-green-700 rounded-md text-sm">
+            {copySuccess}
+          </div>
+        )}
+        <div className="space-y-2">
+          {bill.participants.map((participant) => {
+            const total = getParticipantTotal(participant.id);
+            return (
+              <div
+                key={participant.id}
+                className="flex justify-between items-center p-3 bg-white rounded-md shadow-sm"
+              >
+                <div className="flex items-center gap-2">
+                  <div
+                    className={`w-3 h-3 rounded-full ${participant.color}`}
+                  ></div>
+                  <span className="font-medium text-gray-900">
+                    {participant.name}
+                  </span>
+                </div>
+                <span className="text-lg font-semibold text-gray-900">
+                  ฿{total.toFixed(2)}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
 

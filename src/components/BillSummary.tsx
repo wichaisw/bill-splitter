@@ -5,10 +5,9 @@ import { useState } from "react";
 
 interface BillSummaryProps {
   bill: Bill;
-  setBill: (bill: Bill) => void;
 }
 
-export default function BillSummary({ bill, setBill }: BillSummaryProps) {
+export default function BillSummary({ bill }: BillSummaryProps) {
   const [copySuccess, setCopySuccess] = useState<string>("");
 
   const subtotal = bill.items.reduce(

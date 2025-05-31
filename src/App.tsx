@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Bill, BillItem } from "./types";
+import type { Bill } from "./types";
 import { generateId } from "./utils/id";
 import ParticipantForm from "./components/ParticipantForm";
 import MenuItemForm from "./components/MenuItemForm";
@@ -15,12 +15,6 @@ function App() {
     participants: [],
     serviceCharge: 0,
     tax: 0,
-  });
-
-  const [newItem, setNewItem] = useState<Omit<BillItem, "id" | "sharedBy">>({
-    name: "",
-    price: 0,
-    quantity: 1,
   });
 
   return (
@@ -54,7 +48,7 @@ function App() {
           {/* Right side - Summary */}
           <div className="app-card">
             <h2 className="text-xl font-semibold">Bill Summary</h2>
-            <BillSummary bill={bill} setBill={setBill} />
+            <BillSummary bill={bill} />
           </div>
         </div>
       </main>

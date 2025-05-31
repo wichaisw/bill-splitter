@@ -60,7 +60,10 @@ export default function SessionManager({ bill, setBill }: SessionManagerProps) {
           clipRule="evenodd"
         />
       </svg>
-      <span className="text-sm sm:text-base">Restore</span>
+      <span className="text-sm sm:text-base">
+        <span className="sm:hidden">Restore</span>
+        <span className="hidden sm:inline">Restore Last Session</span>
+      </span>
     </button>
   );
 }

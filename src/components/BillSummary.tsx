@@ -60,6 +60,33 @@ export default function BillSummary({ bill }: BillSummaryProps) {
     <div className="bg-white rounded-lg shadow-md p-4 lg:p-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Bill Summary</h2>
 
+      {/* Summary */}
+      <div className="bg-gray-50 rounded-lg p-4 mb-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Summary</h3>
+        <div className="space-y-2">
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-600">Subtotal</span>
+            <span className="text-gray-900">฿{subtotal.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-600">
+              Service Charge ({bill.serviceCharge}%)
+            </span>
+            <span className="text-gray-900">
+              ฿{serviceChargeAmount.toFixed(2)}
+            </span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-600">Tax ({bill.tax}%)</span>
+            <span className="text-gray-900">฿{taxAmount.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between font-semibold text-base pt-2 border-t border-gray-200">
+            <span className="text-gray-900">Grand Total</span>
+            <span className="text-gray-900">฿{total.toFixed(2)}</span>
+          </div>
+        </div>
+      </div>
+
       {/* Items Table */}
       <div className="relative">
         <div className="overflow-x-auto">
@@ -190,33 +217,6 @@ export default function BillSummary({ bill }: BillSummaryProps) {
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
-
-      {/* Summary */}
-      <div className="bg-gray-50 rounded-lg p-4 mb-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Summary</h3>
-        <div className="space-y-2">
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Subtotal</span>
-            <span className="text-gray-900">฿{subtotal.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-600">
-              Service Charge ({bill.serviceCharge}%)
-            </span>
-            <span className="text-gray-900">
-              ฿{serviceChargeAmount.toFixed(2)}
-            </span>
-          </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Tax ({bill.tax}%)</span>
-            <span className="text-gray-900">฿{taxAmount.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between font-semibold text-base pt-2 border-t border-gray-200">
-            <span className="text-gray-900">Grand Total</span>
-            <span className="text-gray-900">฿{total.toFixed(2)}</span>
-          </div>
         </div>
       </div>
 

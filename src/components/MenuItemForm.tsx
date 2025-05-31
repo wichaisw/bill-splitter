@@ -132,106 +132,97 @@ export default function MenuItemForm({ bill, setBill }: MenuItemFormProps) {
           <h3 className="text-lg font-semibold text-gray-900 mb-4">
             Menu and Participants
           </h3>
-          <div className="relative">
-            <div className="overflow-x-auto">
-              <div className="inline-block min-w-full align-middle">
-                <div className="overflow-hidden">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead>
-                      <tr className="bg-gray-50">
-                        <th className="sticky left-0 z-20 bg-gray-50 px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[120px] sm:w-[160px]">
-                          Menu
-                        </th>
-                        <th className="sticky left-[120px] sm:left-[160px] z-20 bg-gray-50 px-2 sm:px-4 py-2 sm:py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[80px] sm:w-[100px]">
-                          Price
-                        </th>
-                        <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Quantity
-                        </th>
-                        <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Total
-                        </th>
-                        {bill.participants.map((participant) => (
-                          <th
-                            key={participant.id}
-                            className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
-                          >
-                            <div className="flex items-center justify-center space-x-1">
-                              <div
-                                className={`w-3 h-3 rounded-full ${participant.color}`}
-                              ></div>
-                              <span>{participant.name}</span>
-                            </div>
-                          </th>
-                        ))}
-                        <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {bill.items.map((item) => (
-                        <tr
-                          key={item.id}
-                          className="hover:bg-gray-50 transition-colors"
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead>
+                <tr className="bg-gray-50">
+                  <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[160px]">
+                    Menu
+                  </th>
+                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[100px]">
+                    Price
+                  </th>
+                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Quantity
+                  </th>
+                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Total
+                  </th>
+                  {bill.participants.map((participant) => (
+                    <th
+                      key={participant.id}
+                      className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      <div className="flex items-center justify-center space-x-1">
+                        <div
+                          className={`w-3 h-3 rounded-full ${participant.color}`}
+                        ></div>
+                        <span>{participant.name}</span>
+                      </div>
+                    </th>
+                  ))}
+                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {bill.items.map((item) => (
+                  <tr
+                    key={item.id}
+                    className="hover:bg-gray-50 transition-colors"
+                  >
+                    <td className="sticky left-0 z-10 bg-white px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 border-r border-gray-200 w-[160px]">
+                      {item.name}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">
+                      ฿{item.price.toFixed(2)}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
+                      {item.quantity}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 text-right">
+                      ฿{(item.price * item.quantity).toFixed(2)}
+                    </td>
+                    {bill.participants.map((participant) => (
+                      <td
+                        key={participant.id}
+                        className="px-4 py-3 whitespace-nowrap text-center"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={item.sharedBy.includes(participant.id)}
+                          onChange={() =>
+                            toggleParticipantForItem(item.id, participant.id)
+                          }
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 h-4 w-4"
+                        />
+                      </td>
+                    ))}
+                    <td className="px-4 py-3 whitespace-nowrap text-right text-sm">
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        className="text-gray-400 hover:text-red-500 transition-colors"
+                      >
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
                         >
-                          <td className="sticky left-0 z-10 bg-white px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 border-r border-gray-200 w-[160px]">
-                            {item.name}
-                          </td>
-                          <td className="sticky left-[160px] z-10 bg-white px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">
-                            ฿{item.price.toFixed(2)}
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
-                            {item.quantity}
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 text-right">
-                            ฿{(item.price * item.quantity).toFixed(2)}
-                          </td>
-                          {bill.participants.map((participant) => (
-                            <td
-                              key={participant.id}
-                              className="px-4 py-3 whitespace-nowrap text-center"
-                            >
-                              <input
-                                type="checkbox"
-                                checked={item.sharedBy.includes(participant.id)}
-                                onChange={() =>
-                                  toggleParticipantForItem(
-                                    item.id,
-                                    participant.id
-                                  )
-                                }
-                                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 h-4 w-4"
-                              />
-                            </td>
-                          ))}
-                          <td className="px-4 py-3 whitespace-nowrap text-right text-sm">
-                            <button
-                              onClick={() => removeItem(item.id)}
-                              className="text-gray-400 hover:text-red-500 transition-colors"
-                            >
-                              <svg
-                                className="w-5 h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                />
-                              </svg>
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}

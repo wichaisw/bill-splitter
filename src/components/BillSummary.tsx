@@ -63,143 +63,133 @@ export default function BillSummary({ bill }: BillSummaryProps) {
       {/* Items Table */}
       <div className="relative">
         <div className="overflow-x-auto">
-          <div className="inline-block min-w-full align-middle">
-            <div className="overflow-hidden">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[160px]">
-                      Menu
-                    </th>
-                    <th className="sticky left-[160px] z-20 bg-gray-50 px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[100px]">
-                      Price
-                    </th>
-                    <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Quantity
-                    </th>
-                    <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Total
-                    </th>
-                    {bill.participants.map((participant) => (
-                      <th
-                        key={participant.id}
-                        className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        {participant.name}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {bill.items.map((item) => {
-                    const itemTotal = multiply(item.price, item.quantity);
-                    return (
-                      <tr key={item.id} className="hover:bg-gray-50">
-                        <td className="sticky left-0 z-10 bg-white px-4 py-3 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200 w-[160px]">
-                          {item.name}
-                        </td>
-                        <td className="sticky left-[160px] z-10 bg-white px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">
-                          ฿{item.price.toFixed(2)}
-                        </td>
-                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
-                          {item.quantity}
-                        </td>
-                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
-                          ฿{itemTotal.toFixed(2)}
-                        </td>
-                        {bill.participants.map((participant) => {
-                          const shareCount = item.sharedBy.length;
-                          const itemShare = item.sharedBy.includes(
-                            participant.id
-                          )
-                            ? divide(itemTotal, shareCount)
-                            : 0;
-                          return (
-                            <td
-                              key={participant.id}
-                              className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right"
-                            >
-                              {itemShare === 0
-                                ? "-"
-                                : `฿${itemShare.toFixed(2)}`}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-                  {/* Subtotal Row */}
-                  <tr className="bg-gray-50 font-semibold">
-                    <td className="sticky left-0 z-10 bg-gray-50 px-4 py-3 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200 w-[160px]">
-                      SUBTOTAL
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[160px]">
+                  Menu
+                </th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[100px]">
+                  Price
+                </th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Quantity
+                </th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Total
+                </th>
+                {bill.participants.map((participant) => (
+                  <th
+                    key={participant.id}
+                    className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    {participant.name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {bill.items.map((item) => {
+                const itemTotal = multiply(item.price, item.quantity);
+                return (
+                  <tr key={item.id} className="hover:bg-gray-50">
+                    <td className="sticky left-0 z-10 bg-white px-4 py-3 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200 w-[160px]">
+                      {item.name}
                     </td>
-                    <td className="sticky left-[160px] z-10 bg-gray-50 px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">
-                      -
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">
+                      ฿{item.price.toFixed(2)}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
-                      -
+                      {item.quantity}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
-                      ฿{subtotal.toFixed(2)}
+                      ฿{itemTotal.toFixed(2)}
                     </td>
                     {bill.participants.map((participant) => {
-                      const participantItems = bill.items.filter((item) =>
-                        item.sharedBy.includes(participant.id)
+                      const shareCount = item.sharedBy.length;
+                      const itemShare = item.sharedBy.includes(participant.id)
+                        ? divide(itemTotal, shareCount)
+                        : 0;
+                      return (
+                        <td
+                          key={participant.id}
+                          className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right"
+                        >
+                          {itemShare === 0 ? "-" : `฿${itemShare.toFixed(2)}`}
+                        </td>
                       );
-                      const participantSubtotal = participantItems.reduce(
-                        (total, item) => {
-                          const shareCount = item.sharedBy.length;
-                          const itemShare = divide(
-                            multiply(item.price, item.quantity),
-                            shareCount
-                          );
-                          return add(total, itemShare);
-                        },
-                        0
+                    })}
+                  </tr>
+                );
+              })}
+              {/* Subtotal Row */}
+              <tr className="bg-gray-50 font-semibold">
+                <td className="sticky left-0 z-10 bg-gray-50 px-4 py-3 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200 w-[160px]">
+                  SUBTOTAL
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">
+                  -
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
+                  -
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
+                  ฿{subtotal.toFixed(2)}
+                </td>
+                {bill.participants.map((participant) => {
+                  const participantItems = bill.items.filter((item) =>
+                    item.sharedBy.includes(participant.id)
+                  );
+                  const participantSubtotal = participantItems.reduce(
+                    (total, item) => {
+                      const shareCount = item.sharedBy.length;
+                      const itemShare = divide(
+                        multiply(item.price, item.quantity),
+                        shareCount
                       );
+                      return add(total, itemShare);
+                    },
+                    0
+                  );
 
-                      return (
-                        <td
-                          key={participant.id}
-                          className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right"
-                        >
-                          ฿{participantSubtotal.toFixed(2)}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                  {/* Net Total Row */}
-                  <tr className="bg-gray-100 font-semibold">
-                    <td className="sticky left-0 z-10 bg-gray-100 px-4 py-3 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200 w-[160px]">
-                      NET TOTAL
+                  return (
+                    <td
+                      key={participant.id}
+                      className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right"
+                    >
+                      ฿{participantSubtotal.toFixed(2)}
                     </td>
-                    <td className="sticky left-[160px] z-10 bg-gray-100 px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">
-                      -
+                  );
+                })}
+              </tr>
+              {/* Net Total Row */}
+              <tr className="bg-gray-100 font-semibold">
+                <td className="sticky left-0 z-10 bg-gray-100 px-4 py-3 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200 w-[160px]">
+                  NET TOTAL
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">
+                  -
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
+                  -
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
+                  ฿{total.toFixed(2)}
+                </td>
+                {bill.participants.map((participant) => {
+                  const participantTotal = getParticipantTotal(participant.id);
+                  return (
+                    <td
+                      key={participant.id}
+                      className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right"
+                    >
+                      ฿{participantTotal.toFixed(2)}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
-                      -
-                    </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right">
-                      ฿{total.toFixed(2)}
-                    </td>
-                    {bill.participants.map((participant) => {
-                      const participantTotal = getParticipantTotal(
-                        participant.id
-                      );
-                      return (
-                        <td
-                          key={participant.id}
-                          className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right"
-                        >
-                          ฿{participantTotal.toFixed(2)}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                  );
+                })}
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 

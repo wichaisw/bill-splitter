@@ -3,9 +3,10 @@ import ExportToExcel from "./ExportToExcel";
 
 interface BillSummaryProps {
   bill: Bill;
+  setBill: (bill: Bill) => void;
 }
 
-export default function BillSummary({ bill }: BillSummaryProps) {
+export default function BillSummary({ bill, setBill }: BillSummaryProps) {
   const subtotal = bill.items.reduce(
     (total, item) => total + item.price * item.quantity,
     0

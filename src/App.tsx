@@ -4,6 +4,7 @@ import { generateId } from "./utils/id";
 import ParticipantForm from "./components/ParticipantForm";
 import MenuItemForm from "./components/MenuItemForm";
 import BillSummary from "./components/BillSummary";
+import JsonDataHandler from "./components/JsonDataHandler";
 import "./App.css";
 
 function App() {
@@ -42,6 +43,11 @@ function App() {
             <div className="app-card">
               <h2 className="text-xl font-semibold">Add Menu Items</h2>
               <MenuItemForm bill={bill} setBill={setBill} />
+            </div>
+
+            <div className="app-card">
+              <h2 className="text-xl font-semibold">Import/Export Data</h2>
+              <JsonDataHandler bill={bill} setBill={setBill} />
             </div>
           </div>
 

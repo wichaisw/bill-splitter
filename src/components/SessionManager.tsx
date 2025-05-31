@@ -20,7 +20,13 @@ export default function SessionManager({ bill, setBill }: SessionManagerProps) {
   // Save session whenever bill changes
   useEffect(() => {
     if (bill.items.length > 0 || bill.participants.length > 0) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(bill));
+      // Ensure serviceCharge and tax are included
+      const sessionData = {
+        ...bill,
+        serviceCharge: bill.serviceCharge || 0,
+        tax: bill.tax || 0,
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sessionData));
       setHasStoredSession(true);
     }
   }, [bill]);
@@ -30,7 +36,13 @@ export default function SessionManager({ bill, setBill }: SessionManagerProps) {
     if (storedSession) {
       try {
         const parsedSession = JSON.parse(storedSession);
-        setBill(parsedSession);
+        // Ensure serviceCharge and tax are included when restoring
+        const restoredSession = {
+          ...parsedSession,
+          serviceCharge: parsedSession.serviceCharge || 0,
+          tax: parsedSession.tax || 0,
+        };
+        setBill(restoredSession);
       } catch (error) {
         console.error("Failed to restore session:", error);
       }

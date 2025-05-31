@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Bill } from "../types";
 
 interface ChargeSettingsProps {
@@ -11,6 +11,12 @@ export default function ChargeSettings({ bill, setBill }: ChargeSettingsProps) {
     bill.serviceCharge.toString()
   );
   const [tax, setTax] = useState(bill.tax.toString());
+
+  // Update local state when bill prop changes
+  useEffect(() => {
+    setServiceCharge(bill.serviceCharge.toString());
+    setTax(bill.tax.toString());
+  }, [bill.serviceCharge, bill.tax]);
 
   const handleServiceChargeChange = (value: string) => {
     setServiceCharge(value);

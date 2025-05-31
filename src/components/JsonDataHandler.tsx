@@ -23,8 +23,13 @@ export default function JsonDataHandler({
       const importedData = JSON.parse(event.target.value);
 
       // Validate the imported data structure
-      if (!importedData.items || !importedData.participants) {
-        throw new Error("Invalid data structure");
+      if (
+        !importedData.items ||
+        !importedData.participants ||
+        typeof importedData.serviceCharge !== "number" ||
+        typeof importedData.tax !== "number"
+      ) {
+        throw new Error("Invalid data structure: missing required fields");
       }
 
       setBill(importedData);

@@ -44,13 +44,13 @@ export default function SessionManager({ bill, setBill }: SessionManagerProps) {
   return (
     <button
       onClick={restoreSession}
-      className="px-4 py-2 bg-blue-600 text-white rounded-md 
-        hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 
-        focus:ring-offset-2 transition-colors flex items-center justify-center gap-2"
+      className="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 
+        text-white rounded-lg transition-colors duration-200 focus:outline-none 
+        focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-blue-600"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5"
+        className="h-5 w-5 mr-2"
         viewBox="0 0 20 20"
         fill="currentColor"
       >

@@ -66,7 +66,7 @@ export default function BillSummary({ bill }: BillSummaryProps) {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                <th className="sticky left-0 z-20 bg-gray-50 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[160px]">
+                <th className="sticky left-0 z-20 bg-gray-50 px-2 sm:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[120px] sm:w-[160px]">
                   Menu
                 </th>
                 <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 w-[100px]">
@@ -93,7 +93,7 @@ export default function BillSummary({ bill }: BillSummaryProps) {
                 const itemTotal = multiply(item.price, item.quantity);
                 return (
                   <tr key={item.id} className="hover:bg-gray-50">
-                    <td className="sticky left-0 z-10 bg-white px-4 py-3 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200 w-[160px]">
+                    <td className="sticky left-0 z-10 max-w-[150px] lg:max-h-[500px] overflow-wrap-anywhere bg-white px-2 sm:px-4 py-3 text-sm text-gray-900 border-r border-gray-200 w-[120px] sm:w-[160px] break-words">
                       {item.name}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">
@@ -124,7 +124,7 @@ export default function BillSummary({ bill }: BillSummaryProps) {
               })}
               {/* Subtotal Row */}
               <tr className="bg-gray-50 font-semibold">
-                <td className="sticky left-0 z-10 bg-gray-50 px-4 py-3 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200 w-[160px]">
+                <td className="sticky left-0 z-10 bg-gray-50 px-2 sm:px-4 py-3 text-sm text-gray-900 border-r border-gray-200 w-[120px] sm:w-[160px] break-words">
                   SUBTOTAL
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">
@@ -164,7 +164,7 @@ export default function BillSummary({ bill }: BillSummaryProps) {
               </tr>
               {/* Net Total Row */}
               <tr className="bg-gray-100 font-semibold">
-                <td className="sticky left-0 z-10 bg-gray-100 px-4 py-3 whitespace-nowrap text-sm text-gray-900 border-r border-gray-200 w-[160px]">
+                <td className="sticky left-0 z-10 bg-gray-100 px-2 sm:px-4 py-3 text-sm text-gray-900 border-r border-gray-200 w-[120px] sm:w-[160px] break-words">
                   NET TOTAL
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right border-r border-gray-200 w-[100px]">

@@ -18,9 +18,9 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen w-full bg-gray-100 flex flex-col">
       {/* Header */}
-      <header className="bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg">
+      <header className="w-full bg-gray-800 shadow-md">
         <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <h1 className="text-3xl font-bold text-white tracking-tight">
@@ -35,18 +35,18 @@ function App() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="w-full flex-1 p-4 sm:p-8 max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 gap-8">
           {/* Input forms */}
           <div className="space-y-6">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 transition-shadow hover:shadow-md">
+            <div className="w-full bg-white rounded-xl shadow-md border border-gray-200 p-6 sm:p-8 mb-6">
               <h2 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-4 mb-4">
                 Add Participants
               </h2>
               <ParticipantForm bill={bill} setBill={setBill} />
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 transition-shadow hover:shadow-md">
+            <div className="w-full bg-white rounded-xl shadow-md border border-gray-200 p-6 sm:p-8 mb-6">
               <h2 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-4 mb-4">
                 Add Menu Items
               </h2>
@@ -54,7 +54,7 @@ function App() {
             </div>
 
             {/* Bill Summary */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 transition-shadow hover:shadow-md">
+            <div className="w-full bg-white rounded-xl shadow-md border border-gray-200 p-6 sm:p-8 mb-6">
               <h2 className="text-xl font-semibold text-gray-900 border-b border-gray-200 pb-4 mb-4">
                 Bill Summary
               </h2>

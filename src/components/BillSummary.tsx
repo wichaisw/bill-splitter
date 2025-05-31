@@ -1,5 +1,6 @@
 import type { Bill } from "../types";
 import ExportToExcel from "./ExportToExcel";
+import { add, multiply, divide, calculatePercentage } from "../utils/math";
 
 interface BillSummaryProps {
   bill: Bill;
@@ -8,13 +9,13 @@ interface BillSummaryProps {
 
 export default function BillSummary({ bill, setBill }: BillSummaryProps) {
   const subtotal = bill.items.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => add(total, multiply(item.price, item.quantity)),
     0
   );
-  const serviceChargeAmount = subtotal * (bill.serviceCharge / 100);
-  const afterServiceCharge = subtotal + serviceChargeAmount;
-  const taxAmount = afterServiceCharge * (bill.tax / 100);
-  const total = afterServiceCharge + taxAmount;
+  const serviceChargeAmount = calculatePercentage(subtotal, bill.serviceCharge);
+  const afterServiceCharge = add(subtotal, serviceChargeAmount);
+  const taxAmount = calculatePercentage(afterServiceCharge, bill.tax);
+  const total = add(afterServiceCharge, taxAmount);
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
@@ -49,7 +50,7 @@ export default function BillSummary({ bill, setBill }: BillSummaryProps) {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {bill.items.map((item) => {
-              const itemTotal = item.price * item.quantity;
+              const itemTotal = multiply(item.price, item.quantity);
               return (
                 <tr key={item.id} className="hover:bg-gray-50">
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
@@ -67,14 +68,14 @@ export default function BillSummary({ bill, setBill }: BillSummaryProps) {
                   {bill.participants.map((participant) => {
                     const shareCount = item.sharedBy.length;
                     const itemShare = item.sharedBy.includes(participant.id)
-                      ? (itemTotal / shareCount).toFixed(2)
-                      : "-";
+                      ? divide(itemTotal, shareCount)
+                      : 0;
                     return (
                       <td
                         key={participant.id}
                         className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 text-right"
                       >
-                        {itemShare === "-" ? "-" : `฿${itemShare}`}
+                        {itemShare === 0 ? "-" : `฿${itemShare.toFixed(2)}`}
                       </td>
                     );
                   })}
@@ -102,8 +103,11 @@ export default function BillSummary({ bill, setBill }: BillSummaryProps) {
                 const participantSubtotal = participantItems.reduce(
                   (total, item) => {
                     const shareCount = item.sharedBy.length;
-                    const itemShare = (item.price * item.quantity) / shareCount;
-                    return total + itemShare;
+                    const itemShare = divide(
+                      multiply(item.price, item.quantity),
+                      shareCount
+                    );
+                    return add(total, itemShare);
                   },
                   0
                 );
@@ -139,19 +143,30 @@ export default function BillSummary({ bill, setBill }: BillSummaryProps) {
                 const participantSubtotal = participantItems.reduce(
                   (total, item) => {
                     const shareCount = item.sharedBy.length;
-                    const itemShare = (item.price * item.quantity) / shareCount;
-                    return total + itemShare;
+                    const itemShare = divide(
+                      multiply(item.price, item.quantity),
+                      shareCount
+                    );
+                    return add(total, itemShare);
                   },
                   0
                 );
-                const participantServiceCharge =
-                  participantSubtotal * (bill.serviceCharge / 100);
-                const participantAfterServiceCharge =
-                  participantSubtotal + participantServiceCharge;
-                const participantTax =
-                  participantAfterServiceCharge * (bill.tax / 100);
-                const finalAmount =
-                  participantAfterServiceCharge + participantTax;
+                const participantServiceCharge = calculatePercentage(
+                  participantSubtotal,
+                  bill.serviceCharge
+                );
+                const participantAfterServiceCharge = add(
+                  participantSubtotal,
+                  participantServiceCharge
+                );
+                const participantTax = calculatePercentage(
+                  participantAfterServiceCharge,
+                  bill.tax
+                );
+                const finalAmount = add(
+                  participantAfterServiceCharge,
+                  participantTax
+                );
 
                 return (
                   <td
